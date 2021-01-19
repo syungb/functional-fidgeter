@@ -1,0 +1,8 @@
+{:lein         true
+ :builds       {:app {:target     :browser
+                      :output-dir "resources/public/js"
+                      :asset-path "/js"
+                      :modules    {:app {:entries [syungb-blog.core]}}
+                      :devtools   {:after-load syungb-blog.core/mount-root}}}
+ :dev-http     {3000 {:root    "resources/public"
+                      :handler syungb-blog.handler/app}}}
