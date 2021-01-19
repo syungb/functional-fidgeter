@@ -7,9 +7,6 @@
     [reagent.core :as r]
     [reagent.session :as session]))
 
-(defonce blog-list (atom nil))
-;(defonce blog (atom nil))
-
 (defn- parse-json [string]
   (.parse js/JSON string))
 
@@ -24,32 +21,44 @@
         (reset! at json)))))
 
 (defn blog-list-page []
-  (let [_ (get-req blog-list)]
-    [:ul.blog-lists
-     (for [list @blog-list
-           :let [{:keys [id date title summary keywords]} (json->map list)]]
-       [:li.blog-lists__list
-        {:key id}
-        [:a.blog-lists__title
-         {:href (str "/blogs/" id)}
-         title]
-        [:span.blog-lists__date date]
-        [:span.blog-lists__summary summary]])]))
+  (let [blog-list (r/atom nil)]
+    (r/create-class
+      {:component-did-mount
+       (fn [_]
+         (get-req blog-list))
+
+       :reagent-render
+       (fn []
+         [:ul.blog-lists
+          (for [list @blog-list
+                :let [{:keys [id date title summary keywords]} (json->map list)]]
+            [:li.blog-lists__list
+             {:key id}
+             [:div.blog-lists__title
+              [:a
+               {:href (str "/blogs/" id)}
+               title]]
+             [:span.blog-lists__date date]
+             [:span.blog-lists__summary summary]])])})))
 
 (defn blog-page []
   (let [blog         (r/atom nil)
         routing-data (session/get :route)
-        blog-id      (get-in routing-data [:route-params :blog-id])
-        _            (get-req blog blog-id)]
-    (fn []
-      (let [{:keys [metadata html]} (json->map @blog)
-            {:keys [title date keywords]} metadata]
-       [:div.blog-page
-        [:div
-         [:a {:href "/blogs"} "< Back to list"]]
-        [:div.blog-area
-         [:div.blog-area__header
-          [:h3 title]
-          [:h4 date]]
-         [:div
-          {:dangerouslySetInnerHTML {:__html html}}]]]))))
+        blog-id      (get-in routing-data [:route-params :blog-id])]
+    (r/create-class
+      {:component-did-mount
+       (fn [_]
+         (get-req blog blog-id))
+       :reagent-render
+       (fn []
+         (let [{:keys [metadata html]} (json->map @blog)
+               {:keys [title date keywords]} metadata]
+          [:div.blog-page
+           [:div
+            [:a {:href "/blogs"} "< Back to list"]]
+           [:div.blog-page
+            [:div.blog-page-header
+             [:h3.blog-page-header__title title]
+             [:p.blog-page-header__date date]]
+            [:div.blog-page-body
+             {:dangerouslySetInnerHTML {:__html html}}]]]))})))
