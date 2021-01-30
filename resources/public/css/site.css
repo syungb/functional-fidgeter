@@ -161,3 +161,16 @@ ul.blog-lists {
 .blog-page-header__date {
   color: #6a6e82;
 }
+
+/* MOBILE SIZE COVERAGE */
+@media only screen and (max-width: 799px) {
+  #app {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .home-page__img {
+    max-width: 100%;
+  }
+}
