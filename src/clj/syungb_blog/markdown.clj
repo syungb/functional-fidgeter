@@ -23,7 +23,7 @@
       json/generate-string))
 
 (def read-files-to-routers
-  (let [list-of-mds (.list (io/file folder-path))]
+  (let [list-of-mds (reverse (.list (io/file folder-path)))]
     (doall
      (for [md list-of-mds]
        (let [idx           (first (clojure.string/split md #"-"))

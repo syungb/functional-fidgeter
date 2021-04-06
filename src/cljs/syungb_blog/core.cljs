@@ -66,6 +66,29 @@
 ;; -------------------------
 ;; Page mounting component
 
+(defn footer []
+  [:footer
+   [:p "Written by Fidgeter while fidgeting.."]
+   [:<>
+    [:a.footer__social-media
+     {:href "https://twitter.com/syungb"
+      :target "_blank"}
+     [:img
+      {:src "images/twitter.svg"
+       :alt "twitter link"}]]
+    [:a.footer__social-media
+     {:href "https://github.com/syungb"
+      :target "_blank"}
+     [:img
+      {:src "images/github.svg"
+       :alt "github link"}]]
+    [:a.footer__social-media
+     {:href "https://linkedin.com/in/siyoungbyun/"
+      :target "_blank"}
+     [:img
+      {:src "images/linkedin.svg"
+       :alt "linkedin link"}]]]])
+
 (defn current-page []
   (fn []
     (let [page (:current-page (session/get :route))]
@@ -73,8 +96,7 @@
        [menu]
        [:div.main
         [page]]
-       [:footer
-        [:p "Written by Fidgeter while fidgeting.."]]])))
+       [footer]])))
 
 ;; -------------------------
 ;; Initialize app
