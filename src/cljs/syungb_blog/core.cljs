@@ -70,22 +70,22 @@
   [:footer
    [:p "Written by Fidgeter while fidgeting.."]
    [:<>
-    [:a.footer__social-media
+    [:a
      {:href "https://twitter.com/syungb"
       :target "_blank"}
-     [:img
+     [:img.footer__social-media
       {:src "images/twitter.svg"
        :alt "twitter link"}]]
-    [:a.footer__social-media
+    [:a
      {:href "https://github.com/syungb"
       :target "_blank"}
-     [:img
+     [:img.footer__social-media
       {:src "images/github.svg"
        :alt "github link"}]]
-    [:a.footer__social-media
+    [:a
      {:href "https://linkedin.com/in/siyoungbyun/"
       :target "_blank"}
-     [:img
+     [:img.footer__social-media
       {:src "images/linkedin.svg"
        :alt "linkedin link"}]]]])
 
